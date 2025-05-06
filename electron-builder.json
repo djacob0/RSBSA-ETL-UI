@@ -1,0 +1,29 @@
+{
+    "appId": "com.yourcompany.etlcontrol",
+    "productName": "ETL Control",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "src/main/main.js",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/dalogoicon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/dalogoicon.ico"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/dalogoicon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }

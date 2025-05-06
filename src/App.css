@@ -1,0 +1,54 @@
+.app-container {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .draggable {
+    -webkit-app-region: drag;
+    height: 32px;
+    background-color: #2f3241;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+  }
+
+  .window-controls {
+    -webkit-app-region: no-drag;
+    display: flex;
+    justify-content: flex-end;
+    padding: 4px 8px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .control-button {
+    margin-left: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  .control-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .close-button:hover {
+    background: #ff5555;
+  }
+
+  .content {
+    margin-top: 32px;
+    height: calc(100vh - 32px);
+  }
