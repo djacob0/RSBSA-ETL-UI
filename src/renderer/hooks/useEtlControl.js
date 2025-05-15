@@ -42,6 +42,18 @@ export default function useEtlControl() {
     }
   }, [fetchStatus]);
 
+  const forceStartEtl = useCallback(async () => {
+    try {
+      await api.post('/api/start-etl-force');
+      await fetchStatus();
+    } catch (error) {
+      setStatus(prev => ({
+        ...prev,
+        error: error.response?.data?.message || error.message || 'Failed to force start ETL',
+      }));
+    }
+  }, [fetchStatus]);
+
   const stopEtl = useCallback(async () => {
     try {
       await api.post('/api/stop-etl');
@@ -60,5 +72,5 @@ export default function useEtlControl() {
     return () => clearInterval(interval);
   }, [fetchStatus]);
 
-  return { status, startEtl, stopEtl, fetchStatus };
+  return { status, startEtl, stopEtl, forceStartEtl, fetchStatus };
 }

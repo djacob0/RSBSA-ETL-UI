@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useEtlControl from '../hooks/useEtlControl';
-import { PlayIcon, StopIcon, ClockIcon, CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/react/24/solid';
+import { PlayIcon, StopIcon, ClockIcon, CheckCircleIcon, ExclamationCircleIcon, BoltIcon } from '@heroicons/react/24/solid';
 
 const schedulePresets = [
   { label: 'Every Minute', value: '* * * * *' },
@@ -12,7 +12,7 @@ const schedulePresets = [
 ];
 
 export default function StatusPanel() {
-  const { status, startEtl, stopEtl } = useEtlControl();
+  const { status, startEtl, stopEtl, forceStartEtl } = useEtlControl();
   const [cronSchedule, setCronSchedule] = useState('0 0 * * *');
   const [uptime, setUptime] = useState('0h 0m 0s');
 
@@ -51,6 +51,10 @@ export default function StatusPanel() {
 
   const handleStartEtl = () => {
     startEtl(cronSchedule);
+  };
+
+  const handleForceStartEtl = () => {
+    forceStartEtl();
   };
 
   const formatScheduleDisplay = (schedule) => {
@@ -126,9 +130,6 @@ export default function StatusPanel() {
               </option>
             ))}
           </select>
-          {/* <p className="mt-1 text-xs text-gray-500">
-            Current selection: {cronSchedule}
-          </p> */}
         </div>
       )}
 
@@ -142,6 +143,17 @@ export default function StatusPanel() {
         >
           <PlayIcon className="h-4 w-4 mr-2" />
           {status?.isRunning ? 'ETL Running' : 'Start ETL'}
+        </button>
+
+        <button
+          onClick={handleForceStartEtl}
+          disabled={status?.isRunning}
+          className={`flex items-center px-4 py-2 rounded-md ${
+            status?.isRunning ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+          } text-white transition-colors`}
+        >
+          <BoltIcon className="h-4 w-4 mr-2" />
+          {status?.isRunning ? 'ETL Running' : 'Force Start ETL'}
         </button>
 
         <button
